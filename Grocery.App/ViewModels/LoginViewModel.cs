@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Grocery.App.Views;
 using Grocery.Core.Interfaces.Services;
 using Grocery.Core.Models;
-using System.Windows.Input;
+
 
 namespace Grocery.App.ViewModels
 {
@@ -46,7 +46,7 @@ namespace Grocery.App.ViewModels
         [RelayCommand]
         private void NavigateToRegister()
         {
-            Application.Current.MainPage = new RegisterView(new RegisterViewModel());
+            Application.Current.MainPage = new RegisterView(new RegisterViewModel(_authService, _global));
         }
     }
 }

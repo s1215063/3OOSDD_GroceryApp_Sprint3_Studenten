@@ -5,8 +5,9 @@
              x:Class="Grocery.App.Views.RegisterView"
              x:DataType="vm:RegisterViewModel"
              Title="RegisterView">
-    <StackLayout Padding="20" VerticalOptions="Center">
-        <Label Text="Login" FontSize="24" HorizontalOptions="Center" />
+    <StackLayout Padding="20" VerticalOptions="Center" Spacing="15">
+        <Label Text="Register" FontSize="24" HorizontalOptions="Center" />
+        <Entry Placeholder="Name" Text="{Binding Name}" Keyboard="Text" />
         <Entry Placeholder="Email" Text="{Binding Email}" Keyboard="Email" />
         <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" />
         <Button Text="Register" Command="{Binding RegisterCommand}" />
