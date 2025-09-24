@@ -15,7 +15,8 @@ namespace Grocery.App.ViewModels
         private readonly IGroceryListItemsService _groceryListItemsService;
         private readonly IProductService _productService;
         private readonly IFileSaverService _fileSaverService;
-        
+        private string searchedProduct = "";
+
         public ObservableCollection<GroceryListItem> MyGroceryListItems { get; set; } = [];
         public ObservableCollection<Product> AvailableProducts { get; set; } = [];
 
@@ -84,6 +85,13 @@ namespace Grocery.App.ViewModels
             {
                 await Toast.Make($"Opslaan mislukt: {ex.Message}").Show(cancellationToken);
             }
+        }
+
+        [RelayCommand]
+        public void PerformSearch(string searchAttempt)
+        {
+            this.searchedProduct = searchAttempt;
+            GetAvailableProducts();
         }
 
     }
