@@ -18,8 +18,8 @@ De integratiebranch waarin alle nieuwe features samengevoegd worden. Hier staat 
 ## feature/…
 Voor iedere nieuwe user case of functionaliteit wordt een aparte feature branch aangemaakt.
 
-- feature/UC5 → voor de uitwerking van Use Case 8.
-- feature/UC6 → voor de uitwerking van Use Case 9.
+- feature/UC8 → voor de uitwerking van Use Case 8.
+- feature/UC9 → voor de uitwerking van Use Case 9.
 
 
 Zodra een feature klaar is, wordt deze terug samengevoegd in de develop branch.
