@@ -1,13 +1,15 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Grocery.App.Views;
 using Grocery.Core.Interfaces.Services;
 using Grocery.Core.Models;
+
 
 namespace Grocery.App.ViewModels
 {
     public partial class LoginViewModel : BaseViewModel
     {
+
         private readonly IAuthService _authService;
         private readonly GlobalViewModel _global;
 
@@ -40,6 +42,11 @@ namespace Grocery.App.ViewModels
             {
                 LoginMessage = "Ongeldige inloggegevens.";
             }
+        }
+        [RelayCommand]
+        private void NavigateToRegister()
+        {
+            Application.Current.MainPage = new RegisterView(new RegisterViewModel(_authService, _global));
         }
     }
 }
