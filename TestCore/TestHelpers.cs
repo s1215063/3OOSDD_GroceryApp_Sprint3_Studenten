@@ -44,7 +44,7 @@ namespace TestCore
             Assert.IsFalse(PasswordHelper.VerifyPassword(password, passwordHash));
         }
 
-
+        // Mock ClientService for testing
         public class TestClientService : IClientService
         {
             private readonly List<Client> _clients = new();
@@ -62,32 +62,10 @@ namespace TestCore
             public void AddTestClient(Client client) => _clients.Add(client);
         }
 
+
         [Test]
-        public void TestRegistration_ExistingEmail_ReturnsNull()
-        {
-            string name = "Existing User";
-            string email = "user3@mail.com";
-            string password = "Password123!";
 
-            var testService = new TestClientService();
-            // Add an existing user to simulate the scenario
-            testService.AddTestClient(new Client(1, "Existing", email, "existingPassword"));
-
-            var registerHelper = new RegisterHelper(testService);
-            Assert.That(registerHelper.RegisterClient(name, email, password), Is.Null);
-        }
-        [TestCase("user1", "IunRhDKa+fWo8+4/Qfj7Pg==.kDxZnUQHCZun6gLIE6d9oeULLRIuRmxmH2QKJv2IM08=", "user1@mail.com")]
-        [TestCase("user3", "sxnIcZdYt8wC8MYWcQVQjQ==.FKd5Z/jwxPv3a63lX+uvQ0+P7EuNYZybvkmdhbnkIHA=", "user3@mail.com")]
-        public void TestRegistration_ExistingEmail_ReturnsNull(string name, string password, string email)
-        {
-            var testService = new TestClientService();
-            // Add an existing user to simulate the scenario
-            testService.AddTestClient(new Client(1, name, email, password));
-
-            var registerHelper = new RegisterHelper(testService);
-            Assert.That(registerHelper.RegisterClient(name, email, password), Is.Null);
-        }
-        [Test]
+        // Happy flow
         public void TestRegistration_ExistingEmail_ReturnsNotNull()
         {
             string name = "Existing User";
@@ -115,6 +93,35 @@ namespace TestCore
 
             var registerHelper = new RegisterHelper(testService);
             Assert.That(registerHelper.RegisterClient(name, email, password), Is.Not.Null);
+        }
+
+
+        [Test]
+
+        // Unhappy flow
+        public void TestRegistration_ExistingEmail_ReturnsNull()
+        {
+            string name = "Existing User";
+            string email = "user3@mail.com";
+            string password = "Password123!";
+
+            var testService = new TestClientService();
+            // Add an existing user to simulate the scenario
+            testService.AddTestClient(new Client(1, "Existing", email, "existingPassword"));
+
+            var registerHelper = new RegisterHelper(testService);
+            Assert.That(registerHelper.RegisterClient(name, email, password), Is.Null);
+        }
+        [TestCase("user1", "IunRhDKa+fWo8+4/Qfj7Pg==.kDxZnUQHCZun6gLIE6d9oeULLRIuRmxmH2QKJv2IM08=", "user1@mail.com")]
+        [TestCase("user3", "sxnIcZdYt8wC8MYWcQVQjQ==.FKd5Z/jwxPv3a63lX+uvQ0+P7EuNYZybvkmdhbnkIHA=", "user3@mail.com")]
+        public void TestRegistration_ExistingEmail_ReturnsNull(string name, string password, string email)
+        {
+            var testService = new TestClientService();
+            // Add an existing user to simulate the scenario
+            testService.AddTestClient(new Client(1, name, email, password));
+
+            var registerHelper = new RegisterHelper(testService);
+            Assert.That(registerHelper.RegisterClient(name, email, password), Is.Null);
         }
     }
 }
