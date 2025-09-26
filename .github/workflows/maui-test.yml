@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - infra/runner-toevoegen
       - develop
       - release/**
   pull_request:
@@ -14,7 +15,7 @@ on:
  
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Haal de repository op
         uses: actions/checkout@v4
@@ -25,10 +26,10 @@ jobs:
           dotnet-version: '8.0.x'
  
       - name: Installeer MAUI workloads
-        run: dotnet workload install maui-android
+        run: dotnet workload install maui-android maui-windows maui-ios maui-maccatalyst
  
       - name: Herstel afhankelijkheden
-        run: dotnet restore
+        run: dotnet restore --runtime win-x64
  
       - name: Bouw de applicatie
         run: dotnet build --configuration Release --no-restore
